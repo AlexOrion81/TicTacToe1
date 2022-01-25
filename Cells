@@ -26,7 +26,7 @@
 			
 			
 			//TODO: call the method that sets the cell content to EMPTY
-			 
+			clear(); //TODO JB check
 		}
 		
 
