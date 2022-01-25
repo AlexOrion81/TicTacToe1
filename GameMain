@@ -10,7 +10,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class GameMain extends JPanel implements MouseListener{
@@ -35,21 +39,23 @@ public class GameMain extends JPanel implements MouseListener{
 	// the game board 
 	private Board board;
 	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
-	//HINT all of the states you require are shown in the code within GameMain
+	//TODO: enumeration for the variable below for GameState: done JB
+	
 	private GameState currentState; 
 	
 	// the current player
 	private Player currentPlayer; 
 	// for displaying game status message
-	private JLabel statusBar;       
+	private JLabel statusBar;  
 	
+	 
 
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {   
 		
 		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+		JPanel panel = new JPanel(); 
+		
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -63,13 +69,18 @@ public class GameMain extends JPanel implements MouseListener{
 		add(statusBar, BorderLayout.SOUTH);
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
-		
-		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
 
+		Cell cells;
 		
-		//TODO: call the method to initialise the game board
-
+			
+		// TODO: call the method to initialize the game board
+		//board[ROWS][COLS] = //TODO fix
+		
+		// Create a new instance of the game "Board"class. 
+		
+		this.board = board; //calling board class TODO fix
+		
+		
 	}
 	
 	public static void main(String[] args) {
@@ -79,16 +90,22 @@ public class GameMain extends JPanel implements MouseListener{
 				//create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
 				
-				//TODO: create the new GameMain panel and add it to the frame
-						
-				
-				
-				//TODO: set the default close operation of the frame to exit_on_close
-		            
-				
+			       
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //it wasnt'working without extra JFrame	
 				frame.pack();             
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
+				frame.setLocationRelativeTo(null); 
+				frame.setVisible(true);  
+				
+				//TODO: create the new GameMain panel and add it to the frame TODO fix
+				//creating a new panel
+				JPanel panel = new JPanel();
+			    panel.setBackground(Color.gray); 
+				panel.setLayout(new GridLayout(3, 3));
+				panel.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
+				panel.setVisible(true);
+				
+				frame.add(panel);  //adding panel to frame
+			
 	         }
 		 });
 	}
@@ -105,23 +122,22 @@ public class GameMain extends JPanel implements MouseListener{
 			statusBar.setForeground(Color.BLACK);          
 			if (currentPlayer == Player.Cross) {   
 			
-				//TODO: use the status bar to display the message "X"'s Turn
+				// status bar to display the message "X"'s Turn
+				statusBar.setText("X your turn");
+				
+				} else {
 
-				
-			} else {    
-				
-				//TODO: use the status bar to display the message "O"'s Turn
-
-				
-			}       
+					// status bar to display the message "O"'s Turn
+					statusBar.setText("O your turn");
+				}       
 			} else if (currentState == GameState.Draw) {          
 				statusBar.setForeground(Color.RED);          
 				statusBar.setText("It's a Draw! Click to play again.");       
 			} else if (currentState == GameState.Cross_won) {          
-				statusBar.setForeground(Color.RED);          
+				statusBar.setForeground(Color.GREEN);          
 				statusBar.setText("'X' Won! Click to play again.");       
 			} else if (currentState == GameState.Nought_won) {          
-				statusBar.setForeground(Color.RED);          
+				statusBar.setForeground(Color.BLUE);          
 				statusBar.setText("'O' Won! Click to play again.");       
 			}
 		}
@@ -148,17 +164,27 @@ public class GameMain extends JPanel implements MouseListener{
 		public void updateGame(Player thePlayer, int row, int col) {
 			//check for win after play
 			if(board.hasWon(thePlayer, row, col)) {
-				
+				if(board.hasWon() == true){	//TODO fix
+	
 				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
-
 				
+				//	if player is cross
+				if (thePlayer == Player.Cross){
+					currentState = GameState.Cross_won; 
+					}else {
+				
+						//if player is nought =			
+						currentState = GameState.Nought_won;
+					} 
+				}
 			} else 
-				if (board.isDraw ()) {
-					
-				// TODO: set the currentstate to the draw gamestate
-
-			}
+				if (board.isDraw() == true) {
+									
+					// setting the currentstate to the draw gamestate
+					currentState = GameState.Draw;
+					}
 			//otherwise no change to current state of playing
+			currentState = GameState.Playing;
 		}
 		
 				
@@ -193,8 +219,8 @@ public class GameMain extends JPanel implements MouseListener{
 			initGame();            
 		}   
 		
-		//TODO: redraw the graphics on the UI          
-           
+		//TODO: redraw the graphics on the UI    
+		paintComponent(null);//fix
 	}
 		
 	
