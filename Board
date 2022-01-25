@@ -21,11 +21,15 @@ public class Board {
 	public Board() {
 		
 	 //TODO: initialise the cells array using ROWS and COLS constants 
-
 		
+		// initializing the array elements using for loop
+		cells = new Cell[GameMain.ROWS][GameMain.COLS];          
+       		
 		for (int row = 0; row < GameMain.ROWS; ++row) {
 			for (int col = 0; col < GameMain.COLS; ++col) {
 				cells[row][col] = new Cell(row, col);
+				
+			
 			}
 		}
 	}
@@ -33,13 +37,21 @@ public class Board {
 
 	 /** Return true if it is a draw (i.e., no more EMPTY cells) */ 
 	public boolean isDraw() {
-		 
+		
 		// TODO: Check whether the game has ended in a draw. 
 		// Hint: Use a nested loop (see the constructor for an example). Check whether any of the cells content in the board grid are Player.Empty. If they are, it is not a draw.
 		// Hint: Return false if it is not a draw, return true if there are no empty positions left
 		   
-		
-
+		for (int row = 0; row < GameMain.ROWS; ++row) {
+			for (int col = 0; col < GameMain.COLS; ++col) {
+				cells[row][col] = new Cell(row, col);
+			}
+			if(!= players.Empty)
+				
+		}
+			
+		return false;
+		 
 		
 	}
 	
@@ -55,7 +67,7 @@ public class Board {
 		
 		
 		 // 3-in-the-diagonal
-		if( cells[0][0].content == thePlayer && cells[1][1].content == thePlayer && cells[2][2].content == thePlayer)
+		if(cells[0][0].content == thePlayer && cells[1][1].content == thePlayer && cells[2][2].content == thePlayer)
 			return true;
 		 
 		
@@ -73,7 +85,7 @@ public class Board {
 	 */
 	public void paint(Graphics g) {
 		//draw the grid
-		g.setColor(Color.gray);
+		g.setColor(Color.blue);
 		for (int row = 1; row < GameMain.ROWS; ++row) {          
 			g.fillRoundRect(0, GameMain.CELL_SIZE * row - GRID_WIDHT_HALF,                
 					GameMain.CANVAS_WIDTH - 1, GRID_WIDTH,                
