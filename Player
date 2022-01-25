@@ -1,0 +1,16 @@
+/**
+ * @author Jaimee Bennett
+ * Student ID: 5048095
+ * Project: Tick-Tac-Toe
+ * Date:25/1/22
+ * Update:- finished
+ * Version: 1 
+ */
+
+/**
+ * Enumeration for the players move
+ */
+
+public enum Player {
+	Empty, Cross, Nought
+}
